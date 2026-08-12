@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Dashboard</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+    <body class="bg-gray-100">
+
+        <!-- Encabezado -->
+        <header class="h-16 bg-gray-800 text-white flex items-center px-6">
+          <h1 class="text-xl font-semibold">Dashboard</h1>
+        </header>
+      
+        <!-- Contenedor principal -->
+        <div class="flex">
+      
+          <!-- Menú lateral -->
+          <aside class="w-64 min-h-screen bg-gray-900 text-white p-6">
+            <nav>
+              <ul class="space-y-4">
+                <li class="text-blue-400">Dashboard</li>
+                <li class="hover:text-blue-400 cursor-pointer">Usuarios</li>
+                <li class="hover:text-blue-400 cursor-pointer">Reportes</li>
+                <li class="hover:text-blue-400 cursor-pointer">Configuración</li>
+              </ul>
+            </nav>
+          </aside>
+      
+          <!-- Área de contenido -->
+          <main class="flex-1 p-8">
+            <h2 class="text-2xl font-bold text-gray-800">
+              Resumen general
+            </h2>
+      
+            <p class="mt-2 text-gray-600">
+              Información principal del dashboard.
+            </p>
+          </main>
+      <!-- Tarjetas de estadísticas -->
+<section class="grid grid-cols-4 gap-6 mt-8">
+
+    <!-- Tarjeta 1 -->
+    <article class="bg-white p-6 rounded-lg shadow">
+      <p class="text-sm text-gray-500">Usuarios totales</p>
+      <p class="mt-2 text-3xl font-bold text-gray-800">8,249</p>
+      <p class="mt-2 text-sm text-green-600">↑ 12% este mes</p>
+    </article>
+  
+    <!-- Tarjeta 2 -->
+    <article class="bg-white p-6 rounded-lg shadow">
+      <p class="text-sm text-gray-500">Ingresos</p>
+      <p class="mt-2 text-3xl font-bold text-gray-800">$24,780</p>
+      <p class="mt-2 text-sm text-green-600">↑ 8% este mes</p>
+    </article>
+  
+    <!-- Tarjeta 3 -->
+    <article class="bg-white p-6 rounded-lg shadow">
+      <p class="text-sm text-gray-500">Pedidos</p>
+      <p class="mt-2 text-3xl font-bold text-gray-800">1,429</p>
+      <p class="mt-2 text-sm text-red-600">↓ 3% este mes</p>
+    </article>
+  
+    <!-- Tarjeta 4 -->
+    <article class="bg-white p-6 rounded-lg shadow">
+      <p class="text-sm text-gray-500">Conversión</p>
+      <p class="mt-2 text-3xl font-bold text-gray-800">3.8%</p>
+      <p class="mt-2 text-sm text-green-600">↑ 2% este mes</p>
+    </article>
+  
+  </section><!-- Tarjetas de gráficas -->
+  <section class="grid grid-cols-2 gap-6 mt-8">
+  
+    <!-- Gráfica de línea -->
+    <article class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">
+        Crecimiento de usuarios
+      </h3>
+  
+      <div class="h-80">
+        <canvas id="lineChart"></canvas>
+      </div>
+    </article>
+  
+    <!-- Gráfica de barras -->
+    <article class="bg-white p-6 rounded-lg shadow">
+      <h3 class="text-lg font-semibold text-gray-800 mb-4">
+        Ingresos mensuales
+      </h3>
+  
+      <div class="h-80">
+        <canvas id="barChart"></canvas>
+      </div>
+    </article>
+  
+  </section>
+        </div>
+      
+      </body>
+      <script>
+        // Gráfica de línea
+        const lineCtx = document.getElementById('lineChart').getContext('2d');
+      
+        const lineChart = new Chart(lineCtx, {
+          type: 'line',
+          data: {
+            labels: [
+              'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+              'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+            ],
+            datasets: [
+              {
+                label: 'Usuarios 2024',
+                data: [
+                  5000, 5500, 6000, 6200, 6800, 7200,
+                  7500, 8000, 8249, 8500, 8800, 9100
+                ],
+                borderColor: 'rgb(59, 130, 246)',
+                backgroundColor: 'rgba(59, 130, 246, 0.1)',
+                tension: 0.3,
+                fill: true
+              },
+              {
+                label: 'Usuarios 2023',
+                data: [
+                  4000, 4200, 4500, 4800, 5100, 5400,
+                  5600, 5900, 6200, 6500, 6800, 7000
+                ],
+                borderColor: 'rgb(107, 114, 128)',
+                backgroundColor: 'rgba(107, 114, 128, 0.1)',
+                tension: 0.3,
+                fill: true
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top'
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      
+        // Gráfica de barras
+        const barCtx = document.getElementById('barChart').getContext('2d');
+      
+        const barChart = new Chart(barCtx, {
+          type: 'bar',
+          data: {
+            labels: [
+              'Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun',
+              'Jul', 'Ago', 'Sep', 'Oct', 'Nov', 'Dic'
+            ],
+            datasets: [{
+              label: 'Ingresos 2024 ($)',
+              data: [
+                15000, 16500, 18000, 19500, 21000, 22500,
+                23000, 24000, 24780, 26000, 27500, 29000
+              ],
+              backgroundColor: 'rgba(59, 130, 246, 0.8)'
+            }]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: 'top'
+              }
+            },
+            scales: {
+              y: {
+                beginAtZero: true
+              }
+            }
+          }
+        });
+      </script>
+  </div>
+
+  <script>
+    // Aquí estará el código de las dos gráficas
+  </script>
+
+</body>
+</html>
